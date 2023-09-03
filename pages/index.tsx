@@ -1,14 +1,26 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
+import Layout from "@/components/Layout";
+import { PostData, getPostsData } from "@/lib/post";
 import styles from "@/styles/Home.module.css";
 import Link from "next/link";
-import Layout from "@/components/Layout";
+import React from "react";
 import utilStyle from "../styles/utils.module.css";
 
-const inter = Inter({ subsets: ["latin"] });
+interface HomeProps {
+  allPostsData: PostData[];
+}
 
-export default function Home() {
+export async function getStaticProps() {
+  const allPostsData = getPostsData();
+  console.log(allPostsData);
+
+  return {
+    props: {
+      allPostsData,
+    },
+  };
+}
+
+const Home: React.FC<HomeProps> = ({ allPostsData }) => {
   return (
     <Layout>
       <section className={`${utilStyle.headingMd}`}>
@@ -17,48 +29,19 @@ export default function Home() {
       <section className={`${utilStyle.headingMd} ${utilStyle.padding1px}`}>
         <h2>📝エンジニアのブログ</h2>
         <div className={styles.grid}>
-          <article>
-            <Link href="/">
-              <img
-                src="/images/thumbnail01.jpg"
-                className={styles.thumbnailImage}
-              />
-              <h1 className={utilStyle.boldText}>最初の記事</h1>
-            </Link>
-            <small className={utilStyle.lightText}>2023/09/02</small>
-          </article>
-          <article>
-            <Link href="/">
-              <img
-                src="/images/thumbnail01.jpg"
-                className={styles.thumbnailImage}
-              />
-              <h1 className={utilStyle.boldText}>最初の記事</h1>
-            </Link>
-            <small className={utilStyle.lightText}>2023/09/02</small>
-          </article>
-          <article>
-            <Link href="/">
-              <img
-                src="/images/thumbnail01.jpg"
-                className={styles.thumbnailImage}
-              />
-              <h1 className={utilStyle.boldText}>最初の記事</h1>
-            </Link>
-            <small className={utilStyle.lightText}>2023/09/02</small>
-          </article>
-          <article>
-            <Link href="/">
-              <img
-                src="/images/thumbnail01.jpg"
-                className={styles.thumbnailImage}
-              />
-              <h1 className={utilStyle.boldText}>最初の記事</h1>
-            </Link>
-            <small className={utilStyle.lightText}>2023/09/02</small>
-          </article>
+          {allPostsData.map(({ id, title, date, thumbnail }) => (
+            <article key={id}>
+              <Link href={`/posts/${id}`}>
+                <img src={`${thumbnail}`} className={styles.thumbnailImage} />
+                <h1 className={utilStyle.boldText}>{title}</h1>
+              </Link>
+              <small className={utilStyle.lightText}>{date}</small>
+            </article>
+          ))}
         </div>
       </section>
     </Layout>
   );
-}
+};
+
+export default Home;
