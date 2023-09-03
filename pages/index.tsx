@@ -1,6 +1,7 @@
-import Layout from "@/components/Layout";
+import Layout, { siteTitle } from "@/components/Layout";
 import { PostData, getPostsData } from "@/lib/post";
 import styles from "@/styles/Home.module.css";
+import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 import utilStyle from "../styles/utils.module.css";
@@ -23,6 +24,9 @@ export async function getStaticProps() {
 const Home: React.FC<HomeProps> = ({ allPostsData }) => {
   return (
     <Layout home>
+      <Head>
+        <title>{siteTitle}</title>
+      </Head>
       <section className={`${utilStyle.headingMd}`}>
         <p>ひまじんエンジニアです</p>
       </section>
