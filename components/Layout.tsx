@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { ReactNode } from "react";
-import styles from "./Layout.module.css";
 import utilStyles from "../styles/utils.module.css";
+import styles from "./Layout.module.css";
 
 const name = "rtake";
 export const siteTitle = "Next.js blog";
