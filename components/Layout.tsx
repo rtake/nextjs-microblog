@@ -9,7 +9,7 @@ export const siteTitle = "Next.js blog";
 
 type LayoutProps = {
   children: ReactNode;
-  home: boolean;
+  home?: boolean;
 };
 
 function Layout({ children, home }: LayoutProps) {
