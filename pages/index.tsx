@@ -22,7 +22,7 @@ export async function getStaticProps() {
 
 const Home: React.FC<HomeProps> = ({ allPostsData }) => {
   return (
-    <Layout>
+    <Layout home>
       <section className={`${utilStyle.headingMd}`}>
         <p>ひまじんエンジニアです</p>
       </section>
