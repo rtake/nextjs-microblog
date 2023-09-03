@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { ReactNode } from "react";
 import utilStyles from "../styles/utils.module.css";
 import styles from "./Layout.module.css";
@@ -37,6 +38,11 @@ function Layout({ children, home }: LayoutProps) {
         )}
       </header>
       <main>{children}</main>
+      {!home && (
+        <div>
+          <Link href="/">←ホームへ戻る</Link>
+        </div>
+      )}
     </div>
   );
 }
